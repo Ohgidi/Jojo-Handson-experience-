@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Ec2 instances
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0c618421e207909d0
+      KeyName: Demo-keys
+      SecurityGroupIds: 
+        - !Ref ECSHostSecurityGroup
+      Tags:
+        - Key: Name
+          Value: EC2-test
+
+
+  ECSHostSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: my security group
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 86.149.62.83/32
